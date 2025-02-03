@@ -12,26 +12,26 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name="category")
-public class Category {
+public class CategoryEntity {
     UUID id;
     String name;
     String description;
 
     @ManyToOne
     @JoinColumn(name="catalog_id", referencedColumnName ="id")
-    private Catalog catalog;
+    private CatalogEntity catalogEntity;
 
     @ManyToOne
     @JoinColumn(name="category_id", referencedColumnName ="id")
-    private Category categoryParent;
+    private CategoryEntity categoryEntityParent;
 
     @OneToMany
     @JoinColumn(name="category_id", referencedColumnName ="id")
-    private Set<Category> subCategories;
+    private Set<CategoryEntity> subCategories;
 
     @OneToMany
     @JoinColumn(name="category_id", referencedColumnName ="id")
-    private Set<Product> products;
+    private Set<ProductEntity> productEntities;
 
 
 }
