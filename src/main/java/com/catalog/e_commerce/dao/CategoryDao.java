@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface CategoryDao {
-    public UUID save(String name, String description, UUID catalogueId, UUID categoryParentId, Set<UUID> subCategoryIds, Set<UUID> productIds);
+    public UUID save(String name, String description, UUID catalogueId, UUID categoryParentId);
 
     public Catalog update(Catalog catalog);
 
