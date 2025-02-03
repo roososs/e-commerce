@@ -1,4 +1,9 @@
 package com.catalog.e_commerce.repository;
 
-public interface ProductJPARepository {
+import com.catalog.e_commerce.entity.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.UUID;
+
+public interface ProductJPARepository extends JpaRepository<Product, UUID> {
 }

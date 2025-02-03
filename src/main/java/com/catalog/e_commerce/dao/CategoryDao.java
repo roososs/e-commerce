@@ -1,4 +1,4 @@
 package com.catalog.e_commerce.dao;
 
-public interface ProductDao {
+public interface CategoryDao {
 }
