@@ -5,9 +5,10 @@ import com.catalog.e_commerce.model.Product;
 import com.catalog.e_commerce.repository.CategoryJPARepository;
 import com.catalog.e_commerce.repository.ProductJPARepository;
 import jakarta.persistence.EntityNotFoundException;
-
+import org.springframework.stereotype.Component;
 import java.util.UUID;
 
+@Component
 public class ProductJpaDao implements ProductDao{
 
     private ProductJPARepository productJPARepository;

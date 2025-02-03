@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.util.Set;
 import java.util.UUID;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -41,31 +43,4 @@ public class CategoryEntity {
         this.categoryEntityParent = categoryEntityParent;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public CatalogEntity getCatalogEntity() {
-        return catalogEntity;
-    }
-
-    public CategoryEntity getCategoryEntityParent() {
-        return categoryEntityParent;
-    }
-
-    public Set<CategoryEntity> getSubCategories() {
-        return subCategories;
-    }
-
-    public Set<ProductEntity> getProductEntities() {
-        return productEntities;
-    }
 }

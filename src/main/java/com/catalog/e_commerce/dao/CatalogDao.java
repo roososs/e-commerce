@@ -1,9 +1,6 @@
 package com.catalog.e_commerce.dao;
-
 import com.catalog.e_commerce.model.Catalog;
 import com.catalog.e_commerce.model.Category;
-import com.catalog.e_commerce.model.Product;
-
 import java.util.Set;
 import java.util.UUID;
 

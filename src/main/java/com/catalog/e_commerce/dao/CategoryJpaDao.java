@@ -1,20 +1,24 @@
 package com.catalog.e_commerce.dao;
-
 import com.catalog.e_commerce.entity.CategoryEntity;
-import com.catalog.e_commerce.model.Catalog;
+import com.catalog.e_commerce.mapper.CategoryMapper;
 import com.catalog.e_commerce.model.Category;
 import com.catalog.e_commerce.model.Product;
-import com.catalog.e_commerce.repository.CatalogueJPARepository;
+import com.catalog.e_commerce.repository.CatalogJPARepository;
 import com.catalog.e_commerce.repository.CategoryJPARepository;
-import com.catalog.e_commerce.repository.ProductJPARepository;
 import jakarta.persistence.EntityNotFoundException;
-
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 import java.util.UUID;
 
+@Component
+@AllArgsConstructor
+@NoArgsConstructor
 public class CategoryJpaDao implements CategoryDao{
-    private CatalogueJPARepository catalogueJPARepository;
+
+    private CatalogJPARepository catalogueJPARepository;
     private CategoryJPARepository categoryJPARepository;
+    private CategoryMapper categoryMapper;
 
     @Override
     public UUID save(String name, String description, UUID catalogueId, UUID categoryParentId) {
@@ -32,18 +36,35 @@ public class CategoryJpaDao implements CategoryDao{
     }
 
     @Override
-    public Catalog update(Catalog catalog) {
+    public Category update(Category category) {
         return null;
     }
 
     @Override
-    public UUID delete(UUID catalogId) {
+    public UUID delete(UUID categoryId) {
         return null;
     }
 
     @Override
-    public Category addSubCategory(UUID subCategoryId) {
-        return null;
+    public Category addSubCategory( UUID categoryParentId, UUID subCategoryId)
+   {
+        var  categoryEntity = categoryJPARepository.findById(subCategoryId);
+
+        if(categoryEntity.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+
+        var categoryEntityParent = categoryJPARepository.findById(categoryParentId);
+        if(categoryEntityParent.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+
+        categoryEntity.get().setCategoryEntityParent(categoryEntityParent.get());
+
+
+       Category category = categoryMapper.apply(categoryEntity.get());
+
+       return update(category);
     }
 
     @Override

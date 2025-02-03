@@ -1,17 +1,17 @@
 package com.catalog.e_commerce.entity;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import lombok.Setter;
 import java.util.UUID;
 
-
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="Product")
+@Table(name="product")
 public class ProductEntity {
 
     @Id
@@ -36,29 +36,5 @@ public class ProductEntity {
         this.categoryEntity = categoryEntity;
         this.price = price;
         this.stock = stock;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public long getPrice() {
-        return price;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public CategoryEntity getCategoryEntity() {
-        return categoryEntity;
     }
 }
