@@ -9,13 +9,13 @@ public interface CategoryDao {
 
     public Category update(Category category);
 
-    public UUID delete(UUID categoryId);
+    public Category delete(UUID categoryId);
 
-    public Category addSubCategory(UUID categoryParent,UUID subCategoryId);
+    public Category linkSubCategory(UUID categoryId,UUID subCategoryId);
 
-    public Category deleteSubCategory(UUID subCategoryId);
+    public Category unlinkSubCategory(UUID subCategoryId);
 
-    public UUID addProduct(UUID productId);
+    public Product linkProduct(UUID categoryId, UUID productId);
 
-    public Product deleteProduct(UUID productId);
+    public Product unlinkProduct(UUID productId);
 }

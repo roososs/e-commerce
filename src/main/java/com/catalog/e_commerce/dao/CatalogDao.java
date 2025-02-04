@@ -12,7 +12,7 @@ public interface CatalogDao {
 
     public Catalog delete(UUID catalogId);
 
-    public UUID addCategory(UUID categoryId);
+    public UUID linkCategory(UUID categoryId);
 
-    public Category deleteCategory(UUID categoryId);
+    public Category unlinkCategory(UUID categoryId);
 }
