@@ -15,6 +15,9 @@ import java.util.UUID;
 @Entity
 @Table(name="category")
 public class CategoryEntity {
+
+    @Id
+    @GeneratedValue
     UUID id;
     String name;
     String description;

@@ -13,6 +13,7 @@ import com.catalog.e_commerce.repository.ProductJPARepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -24,7 +25,9 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class CategoryJpaDao implements CategoryDao{
 
+    @Autowired
     private CatalogJPARepository catalogueJPARepository;
+    @Autowired
     private CategoryJPARepository categoryJPARepository;
     private ProductJPARepository productJPARepository;
     private CategoryMapper categoryMapper;
@@ -35,18 +38,21 @@ public class CategoryJpaDao implements CategoryDao{
 
     @Override
     public UUID save(String name, String description, UUID catalogueId, UUID categoryParentId) {
-        //catalogId is required
+        if (catalogueId == null) {
+            throw new IllegalArgumentException("Catalogue ID must not be null");
+        }
+
         final var catalogEntity = catalogueJPARepository.findById(catalogueId);
-        if (catalogEntity.isEmpty()){
-            throw new EntityNotFoundException();
+        if (catalogEntity.isEmpty()) {
+            throw new EntityNotFoundException("Catalogue not found");
         }
 
-        final var categoryParentEntity = categoryJPARepository.findById(categoryParentId);
-        if (categoryParentId != null && categoryParentEntity.isEmpty()){
-                throw  new EntityNotFoundException();
+        final var categoryParentEntity = categoryParentId != null ? categoryJPARepository.findById(categoryParentId) : java.util.Optional.empty();
+        if (categoryParentId != null && categoryParentEntity.isEmpty()) {
+            throw new EntityNotFoundException("Category parent not found");
         }
 
-        return categoryJPARepository.save(new CategoryEntity(name, description, catalogEntity.get(), categoryParentEntity.get()))
+        return categoryJPARepository.save(new CategoryEntity(name, description, catalogEntity.get(), (CategoryEntity) categoryParentEntity.orElse(null)))
                 .getId();
     }
 

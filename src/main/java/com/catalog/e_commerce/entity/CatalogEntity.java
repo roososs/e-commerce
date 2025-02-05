@@ -27,4 +27,9 @@ public class CatalogEntity {
     @JoinColumn(name = "catalog_id", referencedColumnName = "id")
     private Set<CategoryEntity> categories;
 
+    public CatalogEntity(String name, Set<CategoryEntity> categoriesEntity){
+        this.name=name;
+        this.categories= categoriesEntity;
+    }
+
 }
