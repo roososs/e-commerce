@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -29,12 +30,14 @@ public class CategoryJpaDao implements CategoryDao{
     private CatalogJPARepository catalogueJPARepository;
     @Autowired
     private CategoryJPARepository categoryJPARepository;
+    @Autowired
     private ProductJPARepository productJPARepository;
+    @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
     private ProductMapper productMapper;
+    @Autowired
     private ProductJpaDao productJpaDao;
-    private ProductEntityMapper productEntityMapper;
-    private CategoryEntityMapper categoryEntityMapper;
 
     @Override
     public UUID save(String name, String description, UUID catalogueId, UUID categoryParentId) {
@@ -76,21 +79,13 @@ public class CategoryJpaDao implements CategoryDao{
             throw new EntityNotFoundException();
         }
 
-
-        // Category Model To CategoryEntity via CategoryEntityMapper function
-        Set<CategoryEntity> subCategories  =
-                category.subCategories().stream().map(categoryEntityMapper).collect(Collectors.toSet());
-
-        // Product Model To ProductEntity via ProductEntityMapper function
-        Set<ProductEntity> products = category.products().stream().map(productEntityMapper).collect(Collectors.toSet());
-
         CategoryEntity entityToUpdate = categoryEntity.get();
         entityToUpdate.setName(category.name());
         entityToUpdate.setDescription(category.description());
         entityToUpdate.setCatalogEntity(catalogEntity.get());
         entityToUpdate.setCategoryEntityParent((CategoryEntity) categoryEntityParent.orElse(null));
-        entityToUpdate.setSubCategories(subCategories);
-        entityToUpdate.setProductEntities(products);
+        entityToUpdate.setSubCategories(categoryEntity.get().getSubCategories());
+        entityToUpdate.setProductEntities(categoryEntity.get().getProductEntities());
 
         categoryJPARepository.save(entityToUpdate);
         return categoryMapper.apply(entityToUpdate);
