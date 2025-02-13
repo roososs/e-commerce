@@ -14,7 +14,7 @@ public class ProductService {
     private final ProductJpaDao productJpaDao;
 
 
-    public UUID addProduct(String name, String description, Long price, int stock, UUID categoryId){
+    public UUID addProduct(String name, String description, long price, int stock, UUID categoryId){
         return productJpaDao.save(name,description, price, stock, categoryId);
     }
 
