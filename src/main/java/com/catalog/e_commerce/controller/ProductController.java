@@ -2,6 +2,7 @@ package com.catalog.e_commerce.controller;
 
 
 import com.catalog.e_commerce.dto.ProductAddDto;
+import com.catalog.e_commerce.model.Product;
 import com.catalog.e_commerce.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,12 @@ public class ProductController {
     public ResponseEntity<UUID> addProduct(@RequestBody ProductAddDto productAddDto){
         UUID productId = productService.addProduct(productAddDto.name(), productAddDto.description(), productAddDto.price(), productAddDto.stock(), productAddDto.categoryId());
         return new ResponseEntity<>(productId, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/")
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product){
+        Product productUpdated = productService.updateProduct(product);
+        return new ResponseEntity<>(productUpdated, HttpStatus.OK);
     }
 
 
