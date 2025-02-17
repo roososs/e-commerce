@@ -34,7 +34,7 @@ public class CategoryController {
     }
 
     @PostMapping("/{idCategory}/products/{idProduct}")
-    public ResponseEntity<Product> unlinkProduct(@PathVariable UUID idCategory, @PathVariable UUID idProduct){
+    public ResponseEntity<Product> linkProduct(@PathVariable UUID idCategory, @PathVariable UUID idProduct){
         Product product = categoryService.linkProduct(idCategory,idProduct);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
@@ -43,5 +43,17 @@ public class CategoryController {
     public ResponseEntity<Product> unlinkProduct(@PathVariable UUID idProduct){
         Product product = categoryService.unlinkProduct(idProduct);
         return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+    @PostMapping("/{idCategory}/categories/{idSubCategory}")
+    public ResponseEntity<Category> linkSubCategory(@PathVariable UUID idCategory, @PathVariable UUID idSubCategory){
+        Category category = categoryService.linkSubCategory(idCategory,idSubCategory);
+        return new ResponseEntity<>(category, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/categories/{idSubCategory}")
+    public ResponseEntity<Category> unlinkSubCategory(@PathVariable UUID idSubCategory){
+        Category category = categoryService.unlinkSubCategory(idSubCategory);
+        return new ResponseEntity<>(category, HttpStatus.OK);
     }
 }
