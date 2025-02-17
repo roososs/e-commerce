@@ -45,13 +45,13 @@ public class CategoryController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @PostMapping("/{idCategory}/categories/{idSubCategory}")
+    @PostMapping("/{idCategory}/sub-categories/{idSubCategory}")
     public ResponseEntity<Category> linkSubCategory(@PathVariable UUID idCategory, @PathVariable UUID idSubCategory){
         Category category = categoryService.linkSubCategory(idCategory,idSubCategory);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
-    @DeleteMapping("/categories/{idSubCategory}")
+    @DeleteMapping("/sub-categories/{idSubCategory}")
     public ResponseEntity<Category> unlinkSubCategory(@PathVariable UUID idSubCategory){
         Category category = categoryService.unlinkSubCategory(idSubCategory);
         return new ResponseEntity<>(category, HttpStatus.OK);
