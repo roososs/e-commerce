@@ -35,18 +35,14 @@ public class ProductJpaDao implements ProductDao{
             throw new EntityNotFoundException();
         }
 
-        //categoryId is required
-        final var categoryEntity = categoryJPARepository.findById(product.categoryId());
-        if(categoryEntity.isEmpty()){
-            throw new EntityNotFoundException();
-        }
+        final var categoryEntity = product.categoryId() == null ? null : categoryJPARepository.findById(product.categoryId()).get();
 
         ProductEntity entityToUpdate = productEntity.get();
         entityToUpdate.setName(product.name());
         entityToUpdate.setDescription(product.description());
         entityToUpdate.setPrice(product.price());
         entityToUpdate.setStock(product.stock());
-        entityToUpdate.setCategoryEntity(categoryEntity.get());
+        entityToUpdate.setCategoryEntity(categoryEntity);
 
         productJPARepository.save(entityToUpdate);
         return productMapper.apply(entityToUpdate);

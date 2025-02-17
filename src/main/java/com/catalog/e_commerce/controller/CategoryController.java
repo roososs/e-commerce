@@ -27,9 +27,21 @@ public class CategoryController {
         return new ResponseEntity<>(categoryId, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{categoryId}")
-    public ResponseEntity<Category> updateCategory(@PathVariable UUID categoryId, @Validated @RequestBody CategoryUpdateDto categoryUpdateDto){
-        Category category = categoryService.updateCategory(new Category(categoryId, categoryUpdateDto.name(), categoryUpdateDto.description(), categoryUpdateDto.catalogId(), categoryUpdateDto.categoryParentId(),Collections.emptySet(), Collections.emptySet()));
+    @PatchMapping("/")
+    public ResponseEntity<Category> updateCategory(@Validated @RequestBody CategoryUpdateDto categoryUpdateDto){
+        Category category = categoryService.updateCategory(new Category(categoryUpdateDto.id(), categoryUpdateDto.name(), categoryUpdateDto.description(), categoryUpdateDto.catalogId(), categoryUpdateDto.categoryParentId(),Collections.emptySet(), Collections.emptySet()));
         return new ResponseEntity<>(category, HttpStatus.OK);
+    }
+
+    @PostMapping("/{idCategory}/products/{idProduct}")
+    public ResponseEntity<Product> unlinkProduct(@PathVariable UUID idCategory, @PathVariable UUID idProduct){
+        Product product = categoryService.linkProduct(idCategory,idProduct);
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/products/{idProduct}")
+    public ResponseEntity<Product> unlinkProduct(@PathVariable UUID idProduct){
+        Product product = categoryService.unlinkProduct(idProduct);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 }

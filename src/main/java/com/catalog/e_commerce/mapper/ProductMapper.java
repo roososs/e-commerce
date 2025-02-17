@@ -14,6 +14,6 @@ public class ProductMapper implements Function<ProductEntity, Product> {
                 productEntity.getDescription(),
                 productEntity.getPrice(),
                 productEntity.getStock(),
-                productEntity.getCategoryEntity().getId());
+                productEntity.getCategoryEntity() == null ? null :productEntity.getCategoryEntity().getId());
     }
 }
