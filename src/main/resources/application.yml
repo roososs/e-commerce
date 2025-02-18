@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5332/ecommerce
+    url: jdbc:postgresql://db:5432/ecommerce
     username: sarah
     password: password
   jpa:

@@ -10,14 +10,5 @@ import org.mockito.MockitoAnnotations;
 import java.util.UUID;
 
 public class CategoryServiceTest {
-    @Mock
-    private CategoryJpaDao categoryJpaDao;
 
-    @InjectMocks
-    private CategoryService categoryService;
-
-    @BeforeEach
-    public void setUp(){
-        MockitoAnnotations.openMocks(this);
-    }
 }
