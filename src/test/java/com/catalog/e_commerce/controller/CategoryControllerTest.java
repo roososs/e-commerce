@@ -1,6 +1,5 @@
-package com.catalog.e_commerce.Controller;
+package com.catalog.e_commerce.controller;
 
-import com.catalog.e_commerce.controller.CategoryController;
 import com.catalog.e_commerce.dto.CategoryAddDto;
 import com.catalog.e_commerce.service.CategoryService;
 import org.junit.jupiter.api.BeforeEach;
